@@ -3,44 +3,8 @@ import logo from './logo.svg';
 import saturnicon from './segasaturnicon.jpg';
 import './App.css';
 
-var express = require('express');
-var fs = require('fs');
-var request = require('request');
-var cheerio = require('cheerio');
-var app     = express();
-
-app.get('/scrape', function(req, res){
-    // The URL we will scrape from - in our example Anchorman 2.
-
-    const url = 'http://www.imdb.com/title/tt1229340/';
-
-    // The structure of our request call
-    // The first parameter is our URL
-    // The callback function takes 3 parameters, an error, response status code and the html
-
-    request(url, function(error, response, html){
-
-        // First we'll check to make sure no errors occurred when making the request
-
-        if(!error){
-            // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
-
-            var $ = cheerio.load(html);
-
-            // Finally, we'll define the variables we're going to capture
-
-            var title, release, rating;
-            var json = { title : "", release : "", rating : ""};
-        }
-    })
-})
-
-app.listen('8081')
-console.log('Magic happens on port 8081');
-exports = module.exports = app;
-
-
-
+const axios = require('axios');
+const cheerio = require('cheerio');
 
 class App extends React.Component {
   constructor (props){
@@ -48,6 +12,52 @@ class App extends React.Component {
   }
   render (){
 
+const url = 'https://segaretro.org/List_of_Saturn_Games_(A-M)';
+
+let globalArray = [1] ;
+let dumbArray = [2] ;
+
+axios(url)
+  .then(response => {
+    const html = response.data;
+    const $ = cheerio.load(html)
+    const statsTable = $('tbody > tr');
+    const titles = [];
+
+    statsTable.each(function () {
+      const title = $(this).find('i > a').text();
+      titles.push({
+        title,  
+      });
+    });
+
+    const stringer = JSON.stringify(titles) ;
+    const bestArray = stringer.replace(/\"title\":/g," ") ;
+
+    const fs = require('fs');
+    const writeStream = fs.createWriteStream('gameslist.txt');
+    const pathName = writeStream.path;
+  
+    writeStream.write(bestArray);
+  
+    writeStream.on('finish', () => {
+      console.log(`wrote all the array data to file ${pathName}`);
+   });
+  
+    writeStream.on('error', (err) => {
+      console.error(`There is an error writing the file ${pathName} => ${err}`)
+  });
+  
+  writeStream.end();
+
+  
+  dumbArray = bestArray ;
+    console.log(bestArray)
+  })
+  .catch(console.error);
+  
+  const test = "test" ;
+  
 
     return (
       <div>
