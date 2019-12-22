@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import AppJumbotron from './AppJumbotron'
 import AppFooter from './AppFooter'
 import ItemList from './ItemList'
-import ItemCount from './ItemList'
+import ItemCount from './ItemCount'
 import './App.css';
-import glist from 'C:/Users/Keith/Desktop/ROM/Development/Programming/Gamography/gamography/src/gameslist.txt';
+import glist from './gameslist.txt';
 // import logo from './logo.svg';
 // import saturnicon from './segasaturnicon.jpg';
 
@@ -62,6 +62,7 @@ class App extends Component {
     })
     .catch(console.error);
 
+    const allTheThings = ["2Tax Gold", "3D Baseball", "3D Lemmings", "Test Icicles"];
     return (
       <div>
         <AppJumbotron title="Gamography" />
@@ -71,7 +72,7 @@ class App extends Component {
           Sega Saturn Games Checklist:
         </div>
         <div className="bigmargin">
-        <ItemList />
+        <ItemList items={allTheThings} />
         </div>
         <br />
         <div className="bigmargin">{this.state.dumbArray}</div>
