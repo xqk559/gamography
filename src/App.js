@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import saturnicon from './segasaturnicon.jpg';
 import './App.css';
+import glist from 'C:/Users/Keith/Desktop/ROM/Development/Programming/Gamography/gamography/src/gameslist.txt';
 
 const axios = require('axios');
 const cheerio = require('cheerio');
+
 
 class App extends React.Component {
   constructor (props){
     super ();
   }
   state = {
-    dumbArray: [6]
+    dumbArray: [6],
+    glist2: glist
   }
 
   render (){
@@ -33,10 +34,10 @@ axios(url)
     });
 
     const stringer = JSON.stringify(titles) ;
-    const bestArray = stringer.replace(/\"title\":/g," ") ;
+    const bestArray = stringer.replace(/"title":/g," ") ;
 
     const fs = require('fs');
-    const writeStream = fs.createWriteStream('gameslist.txt');
+    const writeStream = fs.createWriteStream('gameslist2.txt');
     const pathName = writeStream.path;
   
     writeStream.write(bestArray);
@@ -48,8 +49,10 @@ axios(url)
     writeStream.on('error', (err) => {
       console.error(`There is an error writing the file ${pathName} => ${err}`)
   });
-  
+
   writeStream.end();
+
+  console.log(bestArray)
 
   this.setState({dumbArray: bestArray})
 
@@ -57,8 +60,8 @@ axios(url)
   })
   .catch(console.error);
   
-  const test = "test" ;
-  
+  console.log(glist)
+
 
     return (
       <div>
@@ -74,6 +77,8 @@ axios(url)
         <br />
         <div className="bigmargin">{this.state.dumbArray}</div>
         <br />
+        <div>{glist}</div>
+        <div>{this.state.glist2}</div>
         <br />
         <ItemCount count={allTheThings.length} />
         <hr />
@@ -164,9 +169,5 @@ class AppFooter extends React.Component {
     );
   }
 }
-
-let target = document.getElementById('app');
-
-
 
 export default App;
