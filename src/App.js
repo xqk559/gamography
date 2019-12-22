@@ -14,11 +14,10 @@ const cheerio = require('cheerio');
 class App extends Component {
   constructor(props) {
     super(props);
-  }
-
-  state = {
-    dumbArray: [6],
-    glist2: glist
+    this.state = {
+      dumbArray: [6],
+      glist2: glist,
+    };
   }
 
   render() {
@@ -63,7 +62,6 @@ class App extends Component {
     })
     .catch(console.error);
 
-    // const test = "test";
     return (
       <div>
         <AppJumbotron title="Gamography" />
