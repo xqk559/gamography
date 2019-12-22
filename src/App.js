@@ -15,7 +15,7 @@ class App extends React.Component {
 const url = 'https://segaretro.org/List_of_Saturn_Games_(A-M)';
 
 let globalArray = [1] ;
-let dumbArray = [2] ;
+const dumbArray = [2] ;
 
 axios(url)
   .then(response => {
@@ -71,6 +71,7 @@ axios(url)
         <ItemList />
         </div>
         <br />
+        <div className="bigmargin">{dumbArray}</div>
         <br />
         <br />
         <ItemCount count={allTheThings.length} />
