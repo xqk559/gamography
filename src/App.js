@@ -10,12 +10,13 @@ class App extends React.Component {
   constructor (props){
     super ();
   }
+  state = {
+    dumbArray: [6]
+  }
+
   render (){
 
 const url = 'https://segaretro.org/List_of_Saturn_Games_(A-M)';
-
-let globalArray = [1] ;
-const dumbArray = [2] ;
 
 axios(url)
   .then(response => {
@@ -50,8 +51,8 @@ axios(url)
   
   writeStream.end();
 
-  
-  dumbArray = bestArray ;
+  this.setState({dumbArray: bestArray})
+
     console.log(bestArray)
   })
   .catch(console.error);
@@ -71,7 +72,7 @@ axios(url)
         <ItemList />
         </div>
         <br />
-        <div className="bigmargin">{dumbArray}</div>
+        <div className="bigmargin">{this.state.dumbArray}</div>
         <br />
         <br />
         <ItemCount count={allTheThings.length} />
