@@ -5,15 +5,16 @@ import ItemList from './ItemList'
 import ItemCount from './ItemCount'
 import './App.css';
 import gamejson from './gameslist2.json'
+import gamejson3 from './gameslist3.json'
 
-const axios = require('axios');
-const cheerio = require('cheerio');
-const fuckArrays = [JSON.stringify(gamejson)] ;
 const slagArray = JSON.stringify(gamejson) ;
-const coolArray = slagArray.replace(/\"title\":/g," ") ;
-const spiffyArray = coolArray.replace(/[\{\}\""]/g, "") ;
+const slagArray3 = JSON.stringify(gamejson3) ;
+const combineArray = slagArray+slagArray3 ;
+const coolArray = combineArray.replace(/\"title\":/g," ") ;
+const spiffyArray = coolArray.replace(/[\{\}\"\]\["]/g, "") ;
 const splitArray = spiffyArray.split(",") ;
-const splicedArray = splitArray.splice(-579,570) ;
+const splicedArray = splitArray.splice(1159,1167) ;
+const splicedArray2 = splitArray.splice(579,9) ;
 const shiftArray= splitArray.shift() ;
 
 class App extends Component {
@@ -23,7 +24,7 @@ class App extends Component {
 
   render() {
     
-    const allTheThings = splicedArray;
+    const allTheThings = splitArray;
     
     return (
       <div>
