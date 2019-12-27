@@ -23,10 +23,11 @@ axios(url)
     const bestArray = stringer.replace(/\"title\":/g," ") ;
 
     const fs = require('fs');
-    const writeStream = fs.createWriteStream('gameslist2.txt');
+    const writeStream = fs.createWriteStream('gameslist2.json');
     const pathName = writeStream.path;
   
-    writeStream.write(bestArray);
+    // writeStream.write(bestArray);
+    writeStream.write(stringer);
   
     writeStream.on('finish', () => {
       console.log(`wrote all the array data to file ${pathName}`);
@@ -37,6 +38,7 @@ axios(url)
   });
 
   writeStream.end();
+
 
   console.log(bestArray)
 
